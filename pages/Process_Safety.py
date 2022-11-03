@@ -6,6 +6,10 @@ from config import hefg_list
 st.markdown("# Process Safety")
 st.markdown('**Note - Please do not post target or intermediate structure information externally**.')
 
+# st.write(st.session_state.data)
+# if 'key' not in st.session_state:
+#     st.session_state['key'] = 'value'
+# st.write(st.session_state.key)
 
 smile = st.text_input('Enter Smile Code', value= 'O1N=C(C=C1)C(C1)=CC(=CC=1N=[N+]=[N-])CC')
 formula = st.text_input('Enter Molecule Formula', 'C11H10N4O')

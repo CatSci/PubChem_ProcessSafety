@@ -13,6 +13,9 @@ category = {'Green' : ['H302','H312','H332','H333','H303','H305', 'H313','H315',
            'Amber' : ['H301','H311','H331','H300','H310', 'H304', 'H314','H336'],
             'Red' : ['H330','H340','H350','H360', 'H317', 'H334', 'H318', 'H341', 'H351', 'H361', 'H370', 'H371','H372','H373']}
 
+# if "shared" not in st.session_state:
+#    st.session_state["shared"] = True
+
 
 
 cas_no = st.text_input('CAS Number', '57-27-2,102-54-5, 108-88-3')
