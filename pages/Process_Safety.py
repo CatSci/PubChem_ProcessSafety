@@ -2,17 +2,18 @@ import streamlit as st
 import pandas as pd
 from process_safety_utils import color_picker,main, summary,create_dataframe
 from config import hefg_list
+from rdkit import Chem
+from rdkit.Chem.rdMolDescriptors import CalcMolFormula
 
 st.markdown("# Process Safety")
 st.markdown('**Note - Please do not post target or intermediate structure information externally**.')
 
-# st.write(st.session_state.data)
-# if 'key' not in st.session_state:
-#     st.session_state['key'] = 'value'
-# st.write(st.session_state.key)
+
 
 smile = st.text_input('Enter Smile Code', value= 'O1N=C(C=C1)C(C1)=CC(=CC=1N=[N+]=[N-])CC')
-formula = st.text_input('Enter Molecule Formula', 'C11H10N4O')
+# formula = st.text_input('Enter Molecule Formula', 'C11H10N4O')
+
+
 
 
 df = pd.read_excel('atomic masses.xlsx')
@@ -57,9 +58,10 @@ div.stButton > button:first-child:focus {
 
 if st.button('Calculate'):
     with st.spinner('Processing...'):
+        mol = Chem.MolFromSmiles(str(smile))
+        formula = CalcMolFormula(mol)
         hefg, r_v, oxy, group = main(smile, hefg_list, sym_to_mass, formula)
-        # st.write(hefg)
-        # st.write(group)
+
 
         color, text = color_picker(oxy)
         df = create_dataframe(group, r_v, oxy, text)
