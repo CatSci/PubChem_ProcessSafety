@@ -48,6 +48,21 @@ def main():
 
     return dataframe
 
+
+m = st.markdown("""
+<style>
+div.stButton > button:first-child {
+    background-color: #0C1B2A;
+    color:#ffffff;
+    border:None;
+}
+div.stButton > button:first-child:focus {
+    background-color: #0C1B2A;
+    color:#ffffff;
+    border:None;
+}
+</style>""", unsafe_allow_html=True)
+
 if st.button('Search'):
     with st.spinner('Processing...'):
         driver = get_driver() 

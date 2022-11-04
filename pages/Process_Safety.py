@@ -30,14 +30,14 @@ for i in range(mass_df.shape[0]):
 
 
 
-st.markdown("""
-    <style>
-    .big-font {
-        font-size:19px !important;
-        font-family: serif !important;
-    }
-    </style>
-    """, unsafe_allow_html=True)
+# st.markdown("""
+#     <style>
+#     .big-font {
+#         font-size:19px !important;
+#         font-family: serif !important;
+#     }
+#     </style>
+#     """, unsafe_allow_html=True)
 
 m = st.markdown("""
 <style>
