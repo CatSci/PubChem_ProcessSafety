@@ -242,7 +242,7 @@ def create_dataframe(group, rule_six, oxy, hazard):
     return df.to_csv().encode('utf-8')
 
 
-def main(smile, hefg_list, sym_to_mass, formula):
+def process_main(smile, hefg_list, sym_to_mass, formula):
     """ To create datafrme and save as csv file
 
     Args:

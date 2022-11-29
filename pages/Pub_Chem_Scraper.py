@@ -4,7 +4,12 @@ import pandas as pd
 from process_safety_utils import *
 from pubchem_utils import get_driver, find_cas_number_link, extract_data, make_df, merge_dataframe, create_category_df
 
-st.markdown("# PubChem Scraper")
+from process_safety_utils import color_picker, summary,create_dataframe, process_main
+from config import hefg_list
+from rdkit import Chem
+from rdkit.Chem.rdMolDescriptors import CalcMolFormula
+
+st.markdown("# PubChem Scraper & Process Safety")
 st.markdown('**Note - Please do not post target or intermediate structure information externally**.')
 
 category_file = 'Categories.xlsx'
@@ -14,6 +19,16 @@ category = {'Green' : ['H302','H312','H332','H333','H303','H305', 'H313','H315',
             'Red' : ['H330','H340','H350','H360', 'H317', 'H334', 'H318', 'H341', 'H351', 'H361', 'H370', 'H371','H372','H373']}
 
 
+df = pd.read_excel('atomic masses.xlsx')
+
+mass_df = df[df.columns[[1, 3]]]
+
+sym_to_mass = {}
+
+for i in range(mass_df.shape[0]):
+    sym = mass_df.iloc[i, 0]
+    mass = mass_df.iloc[i, 1]
+    sym_to_mass[sym] = mass
 
 
 
@@ -70,10 +85,52 @@ if st.button('Search'):
         dataframe = main()
 
         cat_df = category_scraper(dataframe, category_file)
-
+        st.subheader('PubChem Scraper')
         st.caption('Data')
         st.write(dataframe)
         st.caption('Category')
         st.write(cat_df)
+
+        st.subheader('Process Safety')
+        smiles = list(dataframe.loc[:, 'Smile'])
+        st.write(smiles)
+
+        for i in smiles:
+            mol = Chem.MolFromSmiles(str(i))
+            formula = CalcMolFormula(mol)
+            # st.write(formula)
+            hefg, r_v, oxy, group = process_main(i, hefg_list, sym_to_mass, formula)
+
+
+            color, text = color_picker(oxy)
+            df = create_dataframe(group, r_v, oxy, text)
+            st.download_button(
+                label= 'Download Data',
+                data = df,
+                file_name = 'project_safety.csv',
+                mime= 'text/csv'
+            )
+            col1, col2, col3, col4 = st.columns((1.3, 1, 1, 1))
+            with col1:
+                st.text('HEFG')
+                for i in range(len(group)):
+                    if i + 1 < len(group):
+                        st.subheader(str(group[i] + ','))
+                    else:
+                        st.subheader(str(group[i]))
+            
+            with col2:
+                st.text('Rule Six')
+                st.subheader(round(r_v, 2))
+            with col3:
+                st.text('Oxygen Balance')
+                st.subheader(oxy)
+            with col4:
+                st.text('Hazard Rank')
+                st.subheader(text)
+            
+            st.text('')
+            st.text('Summary')
+            summary(group, r_v, oxy, text)
 
         
