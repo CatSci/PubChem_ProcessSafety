@@ -19,7 +19,7 @@ st.markdown("""
 
 st.markdown('**Process Safety!!**')
 st.markdown("""
-    You add a CAS number to the webpage to the webpage and it will calculate following information:
+    You add a CAS number to the webpage and it will calculate following information:
     - High Energy Functional Group
     - Rule Six
     - Oxygen Balance
