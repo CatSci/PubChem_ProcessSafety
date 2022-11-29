@@ -3,14 +3,7 @@ import streamlit as st
 st.write("# Welcome to CatSci Digital Tools! 👋")
 st.markdown('**Note - Please do not post target or intermediate structure information externally**.')
 
-st.markdown('**Process Safety!!**')
-st.markdown("""
-    You add a Smlie code and Molecule formula to the webpage and it will calculate following information:
-    - High Energy Functional Group
-    - Rule Six
-    - Oxygen Balance
-    - Hazard Rank
-    """)
+
 
 st.markdown('**PubChem Scraper!!**')
 st.markdown("""
@@ -22,6 +15,15 @@ st.markdown("""
     - Density
     - Hazard codes
     - ELN ready risk assessment (green, orange, red – from SOP-C-06)
+    """)
+
+st.markdown('**Process Safety!!**')
+st.markdown("""
+    You add a CAS number to the webpage to the webpage and it will calculate following information:
+    - High Energy Functional Group
+    - Rule Six
+    - Oxygen Balance
+    - Hazard Rank
     """)
 st.markdown(
     """
