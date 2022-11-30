@@ -11,6 +11,7 @@ import streamlit as st
 def get_driver():
     option = webdriver.ChromeOptions()
     option.add_argument('--headless')
+    option.add_argument('--no-sandbox')
     service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(options = option, service= service)
     return driver
