@@ -93,7 +93,6 @@ if st.button('Search'):
 
         st.subheader('Process Safety')
         smiles = list(dataframe.loc[:, 'Smile'])
-        st.write(smiles)
 
         for i in smiles:
             mol = Chem.MolFromSmiles(str(i))

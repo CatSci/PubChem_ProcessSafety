@@ -72,7 +72,7 @@ def get_summary(data, driver):
                         break
     except:
         # st.write("[INFO] Molecule Formula and Molecule weight not found")
-        data['Molecular Formula'] = 'None'
+        data['Molecular Formula'] ='None'
         data['Molecular Weight'] = 'None'
 
     return data
