@@ -1,5 +1,3 @@
-import streamlit as st
-
 st.write("# Welcome to CatSci Digital Tools! 👋")
 st.markdown('**Note - Please do not post target or intermediate structure information externally**.')
 
