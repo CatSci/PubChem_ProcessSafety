@@ -1,5 +1,6 @@
 from lib2to3.pgen2 import driver
 import streamlit as st
+import openpyxl
 import pandas as pd
 from process_safety_utils import *
 from pubchem_utils import get_driver, find_cas_number_link, extract_data, make_df, merge_dataframe, create_category_df
@@ -94,11 +95,20 @@ if st.button('Search'):
         st.subheader('Process Safety')
         smiles = list(dataframe.loc[:, 'Smile'])
 
-        for i in smiles:
-            mol = Chem.MolFromSmiles(str(i))
+        # sheets = []
+        # wb = openpyxl.Workbook()
+        # for i in range(len(smiles)):
+        #     sheets.append(wb.create_sheet('sheet' + ' ' +  str(i + 1)))
+        
+        # # wb.remove(wb.sheetnames[0])
+        # st.write(wb.sheetnames)
+
+
+        for i in range(len(smiles)):
+            mol = Chem.MolFromSmiles(str(smiles[i]))
             formula = CalcMolFormula(mol)
             # st.write(formula)
-            hefg, r_v, oxy, group = process_main(i, hefg_list, sym_to_mass, formula)
+            hefg, r_v, oxy, group = process_main(smiles[i], hefg_list, sym_to_mass, formula)
 
 
             color, text = color_picker(oxy)
@@ -131,5 +141,11 @@ if st.button('Search'):
             st.text('')
             st.text('Summary')
             summary(group, r_v, oxy, text)
+
+        #     st.write('data.xlsx', df, sheet_name = sheets[i])
+        
+        # downloader = st.file_downloader('Download File')
+        # if downloader:
+        #     downloader.download('data.xlsx', 'data')
 
         
